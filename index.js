@@ -33,7 +33,7 @@ const parseMenuRequest = async (response) => {
     try {
         const body = await response.json()
         const { menu_items } = body.acf
-        return menu_items.filter(o => !!o.menu_item).map(o => o.menu_item.text)
+        return menu_items.map(o => o.menu_item && o.menu_item.text || o.menu_description && ("- " + o.menu_description) || "")
     } catch (error) {
         console.log(error)
         console.log("Error fetching")
